@@ -15,13 +15,16 @@
                     <a href="{% url 'update_course' course.id %}">Update</a>
                     <a href="{% url 'delete_course' course.id %}">Delete</a>
                     <a href="{% url 'course_module_update' course.id %}">Edit modules</a>
+                    {% if course.modules.count > 0 %}
+                        <a href="{% url 'module_content_list' course.modules.first.id %}">Manage contents</a>
+                    {% endif %}
                 </p>
             </div>
         {% empty %}
             <p>You have not created any courses yet.</p>
         {% endfor %}
-    <p>
-        <a href="{% url 'course_create' %}" class="button">Create new course</a>
-    </p>
+        <p>
+            <a href="{% url 'course_create' %}" class="button">Create new course</a>
+        </p>
     </div>
 {% endblock content %}

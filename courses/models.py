@@ -49,7 +49,7 @@ class Module(models.Model):
 class Content(models.Model):
     module = models.ForeignKey(Module, related_name='contents', on_delete=models.CASCADE)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,
-                                     limit_choices_to={'models__in': ('text', 'video', 'image', 'file')})
+                                     limit_choices_to={'model__in': ('text', 'video', 'image', 'file')})
     object_id = models.PositiveIntegerField()
     item = GenericForeignKey('content_type', 'object_id')
     order = OrderField(blank=True, for_fields=['module'])
@@ -60,7 +60,7 @@ class Content(models.Model):
 
 class ItemBase(models.Model):
     owner = models.ForeignKey(User, related_name='%(class)s_related', on_delete=models.CASCADE)
-    title = models.CharField(max_length=225),
+    title = models.CharField(max_length=225)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -68,7 +68,7 @@ class ItemBase(models.Model):
         abstract = True
 
     def __str__(self):
-        return self.title
+        return '{}'.format(self.title)
 
 
 class Text(ItemBase):
